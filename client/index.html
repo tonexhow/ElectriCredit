@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f2b705">
+    <meta name="color-scheme" content="light dark">
+    <meta name="application-name" content="ElectriCredit">
+    <meta name="description" content="ElectriCredit prepaid electricity management system for rental spaces.">
+
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <link rel="stylesheet" href="styles/style.css?v=20260831-ec30-persistent-modules-ui">
+    <link rel="stylesheet" href="styles/index.css?v=20260830-ec24-portal-loader-sql">
+
+    <title>ElectriCredit</title>
+
+    <script>
+        (() => {
+            const preference = localStorage.getItem("electricredit-theme") || "system";
+            const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const resolved =
+                preference === "dark"
+                    ? "dark"
+                    : preference === "light"
+                        ? "light"
+                        : (systemDark ? "dark" : "light");
+
+            document.documentElement.dataset.theme = resolved;
+            document.documentElement.dataset.themePreference = preference;
+        })();
+    </script>
+</head>
+
+<body class="ec-boot-active" data-shell="index">
+    <div id="ec-boot-loader" class="ec-boot-loader" role="status" aria-live="polite">
+        <div class="ec-boot-scene" data-loader-version="4">
+            <section class="ec-boot-brand-panel" aria-hidden="true">
+                <div class="ec-boot-brand-orbit"><span>⚡</span><i></i><b></b></div>
+                <div class="ec-boot-brand-copy">
+                    <span class="ec-boot-shell" data-boot-shell>ElectriCredit</span>
+                    <strong>Power that stays accountable.</strong>
+                    <p>Local-first prepaid electricity management for shared rental spaces.</p>
+                </div>
+                <div class="ec-boot-brand-meter"><i></i><i></i><i></i><i></i><i></i></div>
+            </section>
+            <section class="ec-boot-work-panel">
+                <div class="ec-boot-topline">
+                    <span class="ec-boot-live"><i></i> Loading real page data</span>
+                    <button class="ec-boot-shuffle" type="button" data-boot-shuffle aria-label="Show another loading message">↻ <span>Another line</span></button>
+                </div>
+
+                <div class="ec-boot-developer" data-boot-randomize>
+                    <div class="ec-boot-visual" aria-hidden="true">
+                        <span class="ec-boot-loader-mark" data-boot-logo>⚡</span>
+                        <img class="ec-boot-profile" data-boot-profile alt="" hidden>
+                        <span class="ec-boot-pulse"></span>
+                        <span class="ec-boot-ring ec-boot-ring-a"></span>
+                        <span class="ec-boot-ring ec-boot-ring-b"></span>
+                    </div>
+                    <div class="ec-boot-developer-copy">
+                        <span>Developer spotlight</span>
+                        <strong data-boot-profile-name>ElectriCredit Team</strong>
+                        <small data-boot-profile-role>Building the system</small>
+                    </div>
+                </div>
+
+                <div class="ec-boot-copy">
+                    <span class="ec-boot-eyebrow">Preparing your workspace</span>
+                    <strong data-boot-title>ElectriCredit</strong>
+                    <p data-boot-message>Preparing the requested view…</p>
+                </div>
+
+                <div class="ec-boot-meter">
+                    <div class="ec-boot-progress-row">
+                        <div class="ec-boot-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+                        <strong class="ec-boot-percent" data-boot-percent>0%</strong>
+                    </div>
+                    <div class="ec-boot-stages" data-boot-stages aria-label="Loading stages"></div>
+                </div>
+
+                <div class="ec-boot-detail-row">
+                    <small data-boot-detail>Waiting for the first real task to complete.</small>
+                    <span class="ec-boot-hint">Space changes the line</span>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="ec-app">
+        <header class="ec-index-header">
+            <div class="ec-index-header-inner">
+                <button
+                    class="ec-index-menu-button"
+                    id="index-menu-toggle"
+                    type="button"
+                    aria-controls="index-navigation"
+                    aria-expanded="false"
+                    aria-label="Open navigation"
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <a
+                    class="ec-index-brand"
+                    href="#home"
+                    data-index-route="home"
+                    aria-label="ElectriCredit Home"
+                >
+                    <span class="ec-index-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M13.8 1.8 5.7 13h5.1l-.9 9.2 8.4-12.1h-5.2l.7-8.3Z"/></svg></span>
+                    <span class="ec-index-brand-copy">
+                        <strong>ElectriCredit</strong>
+                        <small>Prepaid Electricity</small>
+                    </span>
+                </a>
+
+                <nav
+                    class="ec-index-navigation"
+                    id="index-navigation"
+                    aria-label="Public navigation"
+                >
+                    <button type="button" data-index-route="home">Home</button>
+                    <button type="button" data-index-route="registry">Registry</button>
+                    <button type="button" data-index-route="hub">Hub</button>
+                    <button type="button" data-index-route="tenant">Tenant</button>
+                    <button type="button" data-index-route="about">About</button>
+                </nav>
+
+                <div class="ec-index-actions">
+                    <div
+                        class="ec-index-theme-control"
+                        id="index-theme-control"
+                        data-theme-value="system"
+                        role="group"
+                        aria-label="Theme"
+                    >
+                        <button
+                            type="button"
+                            data-theme-option="light"
+                            aria-label="Light theme"
+                            title="Light"
+                        >☀</button>
+
+                        <button
+                            type="button"
+                            data-theme-option="system"
+                            aria-label="Automatic theme"
+                            title="Auto"
+                        >◐</button>
+
+                        <button
+                            type="button"
+                            data-theme-option="dark"
+                            aria-label="Dark theme"
+                            title="Dark"
+                        >☾</button>
+                    </div>
+
+                    <button
+                        class="ec-index-icon-action"
+                        id="index-chat-button"
+                        type="button"
+                        disabled
+                        aria-label="Chat"
+                        title="No support staff currently available"
+                    >
+                        <svg class="ec-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 9h8M8 12h5"/></svg>
+                        <span class="ec-index-chat-ready" id="index-chat-count" aria-hidden="true"></span>
+                    </button>
+
+                    <button
+                        class="ec-index-login-action"
+                        id="index-login-button"
+                        type="button"
+                    >
+                        <span aria-hidden="true">♙</span>
+                        <span id="index-login-label">Login</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main
+            class="ec-content ec-index-page-content"
+            id="page-content"
+            tabindex="-1"
+        ></main>
+
+        <div id="footer-root"></div>
+        <div id="index-login-root"></div>
+    </div>
+
+    <noscript>
+        <div class="ec-container ec-section">
+            ElectriCredit requires JavaScript to display this website.
+        </div>
+    </noscript>
+
+    <!-- Global foundations used by the public portal -->
+    <script src="scripts/global/api.js?v=20260830-ec26-win-startup-card-speed"></script>
+    <script src="scripts/global/auth.js?v=20260830-ec27-scanner-db-http-fallback"></script>
+    <script src="scripts/global/modal.js?v=20260831-ec30-persistent-modules-ui"></script>
+    <script src="scripts/global/footer.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/global/notification.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/global/ui.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/global/theme.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/global/chat.js?v=20260830-ec24-portal-loader-sql"></script>
+
+    <!-- Public pages -->
+    <script src="scripts/pages/index/home/home_structure.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/index/home/home_design.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/index/home/home_logic.js?v=20260830-ec24-portal-loader-sql"></script>
+
+    <script src="scripts/pages/index/registry/registry_structure.js?v=20260831-ec30-persistent-modules-ui"></script>
+    <script src="scripts/pages/index/registry/registry_design.js?v=20260831-ec30-persistent-modules-ui"></script>
+    <script src="scripts/pages/index/registry/registry_logic.js?v=20260831-ec30-persistent-modules-ui"></script>
+
+    <script src="scripts/pages/index/hub/hub_structure.js?v=20260831-ec30-persistent-modules-ui"></script>
+    <script src="scripts/pages/index/hub/hub_design.js?v=20260831-ec30-persistent-modules-ui"></script>
+    <script src="scripts/pages/index/hub/hub_logic.js?v=20260831-ec30-persistent-modules-ui"></script>
+
+    <script src="scripts/pages/index/tenant/tenant_structure.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/index/tenant/tenant_design.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/index/tenant/tenant_logic.js?v=20260830-ec24-portal-loader-sql"></script>
+
+    <script src="scripts/pages/index/about/about_structure.js?v=20260831-ec30-persistent-modules-ui"></script>
+    <script src="scripts/pages/index/about/about_design.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/index/about/about_logic.js?v=20260831-ec28-team-db-only"></script>
+
+    <script src="scripts/pages/index/chat/chat_structure.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/index/chat/chat_design.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/index/chat/chat_logic.js?v=20260830-ec24-portal-loader-sql"></script>
+
+    <script src="scripts/pages/index/login/login_structure.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/index/login/login_design.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/index/login/login_logic.js?v=20260830-ec24-portal-loader-sql"></script>
+
+    <!-- Main frontend bootstrap -->
+    <script src="scripts/script.js?v=20260830-ec27-scanner-db-http-fallback"></script>
+</body>
+</html>

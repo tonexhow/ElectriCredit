@@ -1,0 +1,8 @@
+{
+  "boot_enabled": true,
+  "ssid": "ElectriCredit Server",
+  "password": "1234567890",
+  "interface": "wlan0",
+  "connection_name": "ElectriCredit Hotspot",
+  "ipv4_address": "10.42.0.1/24"
+}

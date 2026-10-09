@@ -1,0 +1,1 @@
+cd "$HOME/ElectriCredit" && chmod +x "[BOOT] Scripts/"*.sh && bash "[BOOT] Scripts/first-install.sh"

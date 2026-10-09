@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f2b705">
+    <meta name="color-scheme" content="light dark">
+    <meta name="application-name" content="ElectriCredit">
+    <meta name="description" content="ElectriCredit prepaid electricity management system.">
+
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+
+    <link rel="stylesheet" href="styles/style.css?v=20260831-ec30-persistent-modules-ui">
+    <link rel="stylesheet" href="styles/workspace.css?v=20260830-ec24-portal-loader-sql">
+
+    <title>ElectriCredit | Administrator</title>
+
+    <script>
+        (() => {
+            const saved = localStorage.getItem("electricredit-theme");
+            const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const theme = saved === "dark" || saved === "light"
+                ? saved
+                : (systemDark ? "dark" : "light");
+
+            document.documentElement.dataset.theme = theme;
+            document.documentElement.dataset.themePreference = saved || "system";
+        })();
+    </script>
+</head>
+
+<body class="ec-boot-active" data-shell="admin">
+    <div id="ec-boot-loader" class="ec-boot-loader" role="status" aria-live="polite">
+        <div class="ec-boot-scene" data-loader-version="4">
+            <section class="ec-boot-brand-panel" aria-hidden="true">
+                <div class="ec-boot-brand-orbit"><span>⚡</span><i></i><b></b></div>
+                <div class="ec-boot-brand-copy">
+                    <span class="ec-boot-shell" data-boot-shell>ElectriCredit</span>
+                    <strong>Power that stays accountable.</strong>
+                    <p>Local-first prepaid electricity management for shared rental spaces.</p>
+                </div>
+                <div class="ec-boot-brand-meter"><i></i><i></i><i></i><i></i><i></i></div>
+            </section>
+            <section class="ec-boot-work-panel">
+                <div class="ec-boot-topline">
+                    <span class="ec-boot-live"><i></i> Loading real page data</span>
+                    <button class="ec-boot-shuffle" type="button" data-boot-shuffle aria-label="Show another loading message">↻ <span>Another line</span></button>
+                </div>
+
+                <div class="ec-boot-developer" data-boot-randomize>
+                    <div class="ec-boot-visual" aria-hidden="true">
+                        <span class="ec-boot-loader-mark" data-boot-logo>⚡</span>
+                        <img class="ec-boot-profile" data-boot-profile alt="" hidden>
+                        <span class="ec-boot-pulse"></span>
+                        <span class="ec-boot-ring ec-boot-ring-a"></span>
+                        <span class="ec-boot-ring ec-boot-ring-b"></span>
+                    </div>
+                    <div class="ec-boot-developer-copy">
+                        <span>Developer spotlight</span>
+                        <strong data-boot-profile-name>ElectriCredit Team</strong>
+                        <small data-boot-profile-role>Building the system</small>
+                    </div>
+                </div>
+
+                <div class="ec-boot-copy">
+                    <span class="ec-boot-eyebrow">Preparing your workspace</span>
+                    <strong data-boot-title>ElectriCredit</strong>
+                    <p data-boot-message>Preparing the requested view…</p>
+                </div>
+
+                <div class="ec-boot-meter">
+                    <div class="ec-boot-progress-row">
+                        <div class="ec-boot-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+                        <strong class="ec-boot-percent" data-boot-percent>0%</strong>
+                    </div>
+                    <div class="ec-boot-stages" data-boot-stages aria-label="Loading stages"></div>
+                </div>
+
+                <div class="ec-boot-detail-row">
+                    <small data-boot-detail>Waiting for the first real task to complete.</small>
+                    <span class="ec-boot-hint">Space changes the line</span>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div id="app" class="ec-app">
+        <!-- Admin pages will render here -->
+    </div>
+
+    <noscript>
+        ElectriCredit requires JavaScript to run.
+    </noscript>
+
+    <script src="scripts/global/api.js?v=20260830-ec26-win-startup-card-speed"></script>
+    <script src="scripts/global/auth.js?v=20260830-ec27-scanner-db-http-fallback"></script>
+    <script src="scripts/global/modal.js?v=20260831-ec30-persistent-modules-ui"></script>
+    <script src="scripts/global/header.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/global/footer.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/global/navbar.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/global/notification.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/global/ui.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/global/sidebar.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/global/theme.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/global/websocket.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/global/chat.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/admin/dashboard/echarts.min.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/admin/shared/shared.js?v=20260831-ec28-tenant-delete-status"></script>
+    <script src="scripts/pages/admin/overview/page.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/admin/dashboard/page.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/admin/tenant/page.js?v=20260831-ec30-persistent-modules-ui"></script>
+    <script src="scripts/pages/admin/administrator/page.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/admin/rate/page.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/admin/notification/page.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/admin/module/page.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/admin/chats/page.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/admin/profile/page.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/pages/admin/admin.js?v=20260830-ec24-portal-loader-sql"></script>
+    <script src="scripts/script.js?v=20260830-ec27-scanner-db-http-fallback"></script>
+</body>
+</html>

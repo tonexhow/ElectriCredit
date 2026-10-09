@@ -1,0 +1,444 @@
+/* ElectriCredit public portal styles. */
+
+/* Public desktop chat should feel like a compact Messenger drawer, not a tall empty panel. */
+/* =========================================================
+   15. Public Index Shell
+   ========================================================= */
+.ec-index-header {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    min-height: var(--ec-header-height);
+    background: color-mix(in srgb, var(--ec-surface) 94%, transparent);
+    border-bottom: 1px solid var(--ec-border);
+    backdrop-filter: blur(14px);
+}
+.ec-index-header-inner {
+    width: min(100%, var(--ec-content-max));
+    min-height: var(--ec-header-height);
+    margin-inline: auto;
+    padding-inline: var(--ec-space-4);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--ec-space-5);
+}
+.ec-index-brand {
+    min-width: max-content;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ec-space-2);
+    color: var(--ec-text);
+    text-decoration: none;
+}
+.ec-index-brand:hover {
+    text-decoration: none;
+}
+.ec-index-brand-mark {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    background: var(--ec-primary);
+    color: #201a05;
+    box-shadow: var(--ec-shadow-sm);
+}
+.ec-index-brand-mark svg {
+    width: 19px;
+    height: 19px;
+    display: block;
+    fill: currentColor;
+}
+.ec-index-brand-copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+.ec-index-brand-copy strong {
+    font-size: 0.98rem;
+    letter-spacing: -0.02em;
+}
+.ec-index-brand-copy small {
+    margin-top: 0.18rem;
+    color: var(--ec-text-muted);
+    font-size: 0.68rem;
+}
+.ec-index-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ec-space-1);
+}
+.ec-index-navigation button {
+    min-height: 36px;
+    padding: 0.45rem 0.7rem;
+    border: 0;
+    border-radius: var(--ec-radius-sm);
+    background: transparent;
+    color: var(--ec-text-muted);
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 650;
+    transition:
+        color var(--ec-transition),
+        background-color var(--ec-transition);
+}
+.ec-index-navigation button:hover {
+    color: var(--ec-text);
+    background: var(--ec-surface-soft);
+}
+.ec-index-navigation button.is-active {
+    color: var(--ec-text);
+    background: var(--ec-primary-soft);
+}
+.ec-index-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--ec-space-2);
+}
+.ec-index-theme-control {
+    position: relative;
+    width: 108px;
+    height: 38px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    padding: 3px;
+    border: 1px solid var(--ec-border);
+    border-radius: var(--ec-radius-pill);
+    background: var(--ec-surface-soft);
+    overflow: hidden;
+}
+.ec-index-theme-control::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    left: 3px;
+    width: calc((100% - 6px) / 3);
+    border-radius: var(--ec-radius-pill);
+    background: var(--ec-surface);
+    box-shadow: var(--ec-shadow-sm);
+    transition: transform 180ms ease;
+}
+.ec-index-theme-control[data-theme-value="light"]::before {
+    transform: translateX(0);
+}
+.ec-index-theme-control[data-theme-value="system"]::before {
+    transform: translateX(100%);
+}
+.ec-index-theme-control[data-theme-value="dark"]::before {
+    transform: translateX(200%);
+}
+.ec-index-theme-control button {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 30px;
+    border: 0;
+    border-radius: var(--ec-radius-pill);
+    background: transparent;
+    color: var(--ec-text-muted);
+    cursor: pointer;
+    line-height: 1;
+}
+.ec-index-theme-control button.is-active {
+    color: var(--ec-text);
+}
+.ec-index-icon-action,
+.ec-index-login-action {
+    height: 38px;
+    border: 1px solid var(--ec-border);
+    border-radius: var(--ec-radius-sm);
+    background: var(--ec-surface);
+    color: var(--ec-text);
+    cursor: pointer;
+    transition:
+        border-color var(--ec-transition),
+        background-color var(--ec-transition);
+}
+.ec-index-icon-action:hover:not(:disabled),
+.ec-index-login-action:hover {
+    border-color: var(--ec-border-strong);
+    background: var(--ec-surface-soft);
+}
+.ec-index-icon-action {
+    position: relative;
+    width: 42px;
+    display: grid;
+    place-items: center;
+}
+.ec-index-icon-action:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+.ec-index-action-count {
+    position: absolute;
+    right: -5px;
+    bottom: -5px;
+    min-width: 19px;
+    height: 19px;
+    padding-inline: 4px;
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--ec-surface);
+    border-radius: var(--ec-radius-pill);
+    background: var(--ec-primary);
+    color: #201a05;
+    font-size: 0.65rem;
+    font-weight: 850;
+}
+.ec-index-login-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding-inline: 0.8rem;
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+.ec-index-menu-button {
+    display: none;
+    width: 40px;
+    height: 38px;
+    padding: 9px;
+    border: 1px solid var(--ec-border);
+    border-radius: var(--ec-radius-sm);
+    background: var(--ec-surface);
+    cursor: pointer;
+}
+.ec-index-menu-button span {
+    display: block;
+    height: 2px;
+    margin-block: 3px;
+    border-radius: 4px;
+    background: var(--ec-text);
+}
+.ec-index-page-content {
+    flex: 1;
+    min-height: calc(100vh - var(--ec-header-height) - 120px);
+    outline: none;
+}
+@media (max-width: 980px){
+.ec-index-header-inner {
+        grid-template-columns: auto auto 1fr;
+    }
+.ec-index-menu-button {
+        display: block;
+    }
+.ec-index-navigation {
+        position: absolute;
+        top: calc(100% + 1px);
+        left: var(--ec-space-4);
+        right: var(--ec-space-4);
+        display: none;
+        padding: var(--ec-space-2);
+        border: 1px solid var(--ec-border);
+        border-radius: var(--ec-radius-md);
+        background: var(--ec-surface-elevated);
+        box-shadow: var(--ec-shadow-md);
+    }
+.ec-index-navigation.is-open {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+.ec-index-navigation button {
+        width: 100%;
+    }
+.ec-index-actions {
+        justify-self: end;
+    }
+}
+@media (max-width: 720px){
+.ec-index-header-inner {
+        gap: var(--ec-space-2);
+        padding-inline: var(--ec-space-3);
+    }
+.ec-index-brand-copy small {
+        display: none;
+    }
+.ec-index-theme-control {
+        width: 96px;
+    }
+.ec-index-login-action {
+        width: 40px;
+        padding: 0;
+    }
+.ec-index-login-action span:last-child {
+        display: none;
+    }
+.ec-index-navigation.is-open {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 430px){
+.ec-index-brand-copy strong {
+        display: none;
+    }
+.ec-index-brand-mark {
+        width: 38px;
+        height: 38px;
+    }
+.ec-index-theme-control {
+        width: 90px;
+    }
+.ec-index-actions {
+        gap: 0.35rem;
+    }
+}
+/* =========================================================
+   16. Finalized Public Index Polish
+   ========================================================= */
+.ec-index-page-content {
+    padding-top: var(--ec-space-2);
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+        opacity 140ms ease,
+        transform 180ms ease;
+}
+.ec-index-page-content.is-leaving,
+.ec-index-page-content.is-entering {
+    opacity: 0;
+    transform: translateY(5px);
+}
+@media (prefers-reduced-motion: reduce){
+.ec-index-page-content,
+    .ec-index-theme-control::before,
+    .ec-index-navigation button,
+    .ec-card,
+    .ec-button {
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+/* =========================================================
+   Final public spacing, selects and Messenger-style chat
+   ========================================================= */
+.ec-index-page-content {
+    padding-top: 0;
+}
+.ec-index-page-content > .ec-section,
+.ec-index-page-content > section.ec-section {
+    padding-top: clamp(.8rem, 2vw, 1.15rem);
+}
+.ec-index-chat-ready {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 8px;
+    height: 8px;
+    border: 2px solid var(--ec-surface);
+    border-radius: 999px;
+    background: #22c55e;
+    opacity: 0;
+    transform: scale(.65);
+    transition: opacity var(--ec-transition), transform var(--ec-transition);
+}
+.ec-index-chat-ready.is-visible { opacity: 1; transform: scale(1); }
+.ec-public-chat-drawer {
+    position: fixed;
+    top: calc(var(--ec-header-height) + 10px);
+    right: 12px;
+    z-index: 980;
+    width: min(420px, calc(100vw - 24px));
+    height: min(690px, calc(100vh - var(--ec-header-height) - 24px));
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    border: 1px solid var(--ec-border);
+    border-radius: 20px;
+    background: var(--ec-surface-elevated);
+    box-shadow: var(--ec-shadow-lg);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(22px) scale(.985);
+    transition: opacity 160ms ease, transform 180ms ease;
+}
+.ec-public-chat-drawer.is-open { opacity: 1; transform: translateX(0) scale(1); }
+.ec-public-chat-drawer-head {
+    min-height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .8rem 1rem;
+    border-bottom: 1px solid var(--ec-border);
+    background: var(--ec-surface);
+}
+.ec-public-chat-drawer-head > div { display: grid; gap: .1rem; }
+.ec-public-chat-drawer-head strong { font-size: .95rem; }
+.ec-public-chat-drawer-head span { color: var(--ec-text-muted); font-size: .76rem; }
+.ec-public-chat-drawer-head button {
+    width: 34px; height: 34px; display: grid; place-items: center;
+    border: 0; border-radius: 50%; background: var(--ec-surface-soft); color: var(--ec-text);
+    font-size: 1.35rem; cursor: pointer;
+}
+.ec-public-chat-drawer-body { min-height: 0; }
+.ec-public-chat-drawer .ec-chat-conversation { height: 100%; border: 0; border-radius: 0; }
+.ec-index-chat-page-root { min-height: min(70vh, 720px); }
+.ec-index-chat-page-root .ec-chat-public-direct { min-height: min(68vh, 680px); border: 1px solid var(--ec-border); border-radius: 18px; overflow: hidden; }
+@media (max-width: 760px){
+.ec-public-chat-drawer { display: none; }
+.ec-index-chat-header { align-items: center; }
+.ec-index-chat-page-root { min-height: calc(100dvh - var(--ec-header-height) - 150px); }
+.ec-index-chat-page-root .ec-chat-public-direct { min-height: calc(100dvh - var(--ec-header-height) - 170px); border-radius: 14px; }
+}
+/* =========================================================
+   ec11 - Messenger chat, mobile chat pages, footer, developer shell
+   ========================================================= */
+.ec-public-chat-drawer-head {
+    min-height: 58px;
+    padding: .65rem .75rem .65rem 1rem;
+}
+.ec-public-chat-drawer-head > strong { font-size: .95rem; letter-spacing: -.01em; }
+.ec-public-chat-head-actions { display:flex; align-items:center; justify-content:flex-end; gap:.28rem; }
+.ec-public-chat-close,
+.ec-chat-page-action {
+    width:36px; height:36px; display:grid; place-items:center; flex:0 0 auto;
+    border:0; border-radius:50%; background:var(--ec-surface-soft); color:var(--ec-text); cursor:pointer;
+}
+.ec-public-chat-close { font-size:1.35rem; line-height:1; }
+.ec-public-chat-close:hover,
+.ec-chat-page-action:hover { background:var(--ec-primary-soft); color:var(--ec-accent-strong); }
+.ec-public-chat-head-actions .ec-chat-round-action { width:36px; height:36px; }
+.ec-public-chat-drawer-body,
+.ec-public-chat-drawer-body .ec-chat-public-direct { height:100%; min-height:0; }
+.ec-index-chat-page { padding-top:var(--ec-space-3); }
+.ec-index-chat-pagebar {
+    min-height:52px; display:flex; align-items:center; gap:.55rem; padding:.45rem .55rem;
+    border:1px solid var(--ec-border); border-bottom:0; border-radius:18px 18px 0 0; background:var(--ec-surface);
+}
+.ec-index-chat-pagebar > strong { margin-right:auto; }
+.ec-index-chat-page-actions { display:flex; align-items:center; gap:.25rem; }
+.ec-index-chat-page-root .ec-chat-public-direct { border-radius:0 0 18px 18px; }
+@media (max-width:760px){
+body.ec-index-chat-page-active { overflow:hidden; }
+body.ec-index-chat-page-active .ec-index-header,
+    body.ec-index-chat-page-active #footer-root { display:none !important; }
+body.ec-index-chat-page-active .ec-index-page-content { min-height:100dvh; padding:0 !important; margin:0 !important; }
+body.ec-index-chat-page-active .ec-index-chat-page { height:100dvh; min-height:100dvh; padding:0; display:grid; grid-template-rows:auto minmax(0,1fr); }
+body.ec-index-chat-page-active .ec-index-chat-pagebar { border:0; border-bottom:1px solid var(--ec-border); border-radius:0; padding:.55rem .7rem; }
+body.ec-index-chat-page-active .ec-index-chat-page-root { min-height:0; height:100%; }
+body.ec-index-chat-page-active .ec-index-chat-page-root .ec-chat-public-direct { height:100%; min-height:0; border:0; border-radius:0; }
+body.ec-index-chat-page-active .ec-chat-messenger-thread { min-height:0; max-height:none; }
+}
+@media (min-width:761px){
+.ec-public-chat-drawer {
+        width:min(390px,calc(100vw - 28px));
+        height:min(560px,calc(100vh - var(--ec-header-height) - 30px));
+        right:16px;
+        border-radius:18px;
+    }
+.ec-public-chat-drawer .ec-chat-messenger-thread { padding:.65rem .65rem .35rem; }
+.ec-public-chat-drawer .ec-chat-message { max-width:92%; }
+.ec-public-chat-drawer-head { min-height:54px; padding:.55rem .65rem .55rem .85rem; }
+}
+/* =========================================================
+   ec13 - Messenger chat interaction + Management workspace
+   ========================================================= */
+.ec-public-chat-head-actions{display:flex!important;align-items:center;justify-content:flex-end;gap:.25rem;flex-wrap:nowrap!important}
+.ec-public-chat-drawer-head{display:flex;align-items:center;justify-content:space-between}
+.ec-public-chat-drawer-head .ec-chat-round-action,.ec-public-chat-drawer-head .ec-public-chat-close{display:grid!important;flex:0 0 34px}
+.ec-shell [data-tooltip]:hover:after,.ec-shell [data-tooltip]:focus-visible:after,.ec-index-header [data-tooltip]:hover:after{content:attr(data-tooltip);position:absolute;z-index:90000;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);max-width:220px;padding:.36rem .52rem;border-radius:8px;background:#111;color:#fff;font-size:.67rem;font-weight:650;white-space:nowrap;box-shadow:0 8px 22px rgba(0,0,0,.18);pointer-events:none}

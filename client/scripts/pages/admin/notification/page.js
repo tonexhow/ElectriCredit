@@ -1,0 +1,39 @@
+window.ElectriCreditAdminPages = window.ElectriCreditAdminPages || {};
+window.ElectriCreditAdminPages.notification = {
+    id:"notification", label:"Notification",
+    async render(ctx,root){
+        const status=await window.API.get("/admin/notification/status").catch(()=>({available:false}));
+        const available=Boolean(status.available);
+        root.innerHTML=`<section class="ec-page ec-admin-page">
+            ${ctx.pageHeading("Notification","Email notification","Prepare and send email notifications with a live preview.")}
+            <div class="ec-admin-notification-status ${available?"is-online":"is-offline"}"><span class="ec-status-dot"></span><div><strong>${available?"Email notifications are ready":"Email notifications are unavailable"}</strong><small>${available?"Messages can be sent from this server.":"Connect the server to the internet to send email notifications."}</small></div></div>
+            <form class="ec-admin-notification-layout" id="notification-form">
+                <article class="ec-card ec-admin-notification-compose">
+                    <div class="ec-card-header"><div><h2 class="ec-card-title">Compose message</h2><p class="ec-card-description">Choose recipients, write the message, and review it before sending.</p></div></div>
+                    <div class="ec-card-body ec-stack">
+                        <div class="ec-admin-notification-topline">
+                            <label class="ec-form-group"><span class="ec-label">Subject</span><input class="ec-input" name="subject" id="notification-subject" maxlength="180" required placeholder="Email subject"></label>
+                            <label class="ec-form-group"><span class="ec-label">Recipients</span><div class="ec-admin-select-shell ec-admin-select-shell-accent">${ctx.icon("tenant")}<select class="ec-select" name="audience" id="notification-audience">${audienceOptions()}</select><span class="ec-select-chevron" aria-hidden="true"></span></div></label>
+                        </div>
+                        <label class="ec-form-group ec-admin-notification-custom" id="notification-custom-wrap" hidden><span class="ec-label">Custom email addresses</span><textarea class="ec-input" name="custom_emails" rows="3" placeholder="name@example.com, another@example.com"></textarea><span class="ec-help">Separate multiple addresses with commas or new lines.</span></label>
+                        <label class="ec-form-group"><span class="ec-label">Message</span><textarea class="ec-input ec-admin-message-box" name="message" id="notification-message" rows="10" required placeholder="Write your message here…"></textarea></label>
+                    </div>
+                </article>
+                <div class="ec-admin-notification-bottom">
+                    <article class="ec-card ec-admin-notification-style-card"><div class="ec-card-header"><div><h2 class="ec-card-title">Style</h2><p class="ec-card-description">Choose a preset or provide your own HTML.</p></div></div><div class="ec-card-body ec-stack"><label class="ec-form-group"><span class="ec-label">Email style</span><div class="ec-admin-select-shell ec-admin-select-shell-accent">${ctx.icon("bell")}<select class="ec-select" name="preset" id="notification-preset"><option value="announcement">Announcement</option><option value="info">Information</option><option value="alert">Important notice</option><option value="success">Good news</option><option value="none">Simple message</option></select><span class="ec-select-chevron" aria-hidden="true"></span></div></label><label class="ec-admin-switch"><input type="checkbox" name="manual_html" id="notification-html"><span></span><div><strong>Use custom HTML</strong><small>Treat the message field as HTML instead of using the selected style.</small></div></label></div></article>
+                    <article class="ec-card ec-admin-email-preview-card"><div class="ec-card-header"><div><h2 class="ec-card-title">Preview</h2><p class="ec-card-description">Review the email before sending.</p></div></div><div class="ec-card-body"><iframe class="ec-admin-email-preview" id="notification-preview" title="Email preview"></iframe></div></article>
+                </div>
+                <button class="ec-button ec-button-primary ec-admin-notification-send" type="submit" ${available?"":"disabled"}>${ctx.icon("bell")} Send notification</button>
+            </form>
+        </section>`;
+        const audience=root.querySelector("#notification-audience"),custom=root.querySelector("#notification-custom-wrap"),preset=root.querySelector("#notification-preset"),message=root.querySelector("#notification-message"),htmlToggle=root.querySelector("#notification-html"),subject=root.querySelector('[name="subject"]');
+        const syncCustom=()=>{custom.hidden=audience.value!=="custom";};
+        const syncPreview=()=>updatePreview(ctx,{subject:subject.value,message:message.value,preset:preset.value,manualHTML:htmlToggle.checked});
+        audience.addEventListener("change",syncCustom);[preset,message,htmlToggle,subject].forEach(el=>el.addEventListener("input",syncPreview));
+        htmlToggle.addEventListener("change",()=>{if(htmlToggle.checked)preset.value="none";syncPreview();});
+        syncCustom();syncPreview();
+        root.querySelector("#notification-form")?.addEventListener("submit",async event=>{event.preventDefault();if(!available)return;const form=event.currentTarget,button=form.querySelector('button[type="submit"]');ctx.setBusy(button,true);try{const customText=form.elements.custom_emails?.value||"";const body={audience:form.elements.audience.value,custom_emails:customText.split(/[\n,;]+/).map(v=>v.trim()).filter(Boolean),subject:form.elements.subject.value,preset:form.elements.preset.value,message:form.elements.message.value,manual_html:form.elements.manual_html.checked};const result=await window.API.post("/admin/notifications/send",body);window.Notification?.success?.(`Notification sent to ${result.sent||0} recipient${Number(result.sent)===1?"":"s"}.`);}catch(error){window.Notification?.error?.(error.message);}finally{ctx.setBusy(button,false);}});
+    }
+};
+function audienceOptions(){return [["all","All"],["admins","Administrators"],["owners","Owners"],["developers","Developers"],["custom","Custom"]].map(([v,l])=>`<option value="${v}">${l}</option>`).join("");}
+function updatePreview(ctx,{subject,message,preset,manualHTML}){const frame=document.getElementById("notification-preview");if(!frame)return;const palette={announcement:["#f2b705","#201a00"],info:["#2f6fec","#fff"],alert:["#d14b3f","#fff"],success:["#2f8d5a","#fff"],none:["#f2b705","#201a00"]};const [accent,accentText]=palette[preset]||palette.announcement;const body=manualHTML?(message||"<p>Your HTML preview will appear here.</p>"):`<p style="white-space:pre-wrap">${ctx.escapeHTML(message||"Your message preview will appear here.")}</p>`;frame.srcdoc=`<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;padding:22px;background:#f4f5f7;font-family:Arial,sans-serif;color:#20242a}.mail{max-width:620px;margin:auto;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 10px 34px rgba(0,0,0,.08)}.top{padding:24px;background:${accent};color:${accentText}}.top small{display:block;opacity:.8;margin-bottom:5px}.top h1{font-size:22px;margin:0}.body{padding:24px;line-height:1.65;font-size:15px}.foot{padding:16px 24px;border-top:1px solid #e8eaed;color:#70757d;font-size:12px}@media(max-width:520px){body{padding:10px}.mail{border-radius:12px}.top,.body{padding:18px}}</style></head><body><div class="mail"><div class="top"><small>ElectriCredit</small><h1>${ctx.escapeHTML(subject||"Notification preview")}</h1></div><div class="body">${body}</div><div class="foot">ElectriCredit · Capstone Project</div></div></body></html>`;}
